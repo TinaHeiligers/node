@@ -6,6 +6,9 @@ var date = require('./date');
 var userComDate = 'date';
 date[userComDate]();
 
+var userComLs = 'ls';
+commands[userComLs]();
+
 // // Output a prompt
 // process.stdout.write('prompt > ');
 // //console.log(Object.keys(process));
