@@ -1,13 +1,30 @@
+
 var commands = require('./commands');
-var userCommand = 'pwd';
-commands[userCommand]();
 
-var date = require('./date');
-var userComDate = 'date';
-date[userComDate]();
+process.stdout.write('prompt > ');
+process.stdin.on('data', function (data) {
+  var cmd = data.toString().trim();
+  //for cat and head will need to split on spaces
+  //first thing will be the cmd
+  //after that will be params
+  //echo' jsut going to return the users input as is
+  // for cat, head and tail, use fs.readFile()
+  // cat prints whole file
+  // head and tail prints first/last 5 lines
+  commands[cmd]();    
+});
 
-var userComLs = 'ls';
-commands[userComLs]();
+// var userCommand = 'pwd';
+// commands[userCommand]();
+
+// var userComLS = 'ls';
+// commands[userComLS]();
+
+// var date = require('./date');
+// var userComDate = 'date';
+// date[userComDate]();
+
+
 
 // // Output a prompt
 // process.stdout.write('prompt > ');
