@@ -9,7 +9,7 @@ module.exports = {
 
   },
   
-  pwd: function() {
+  pwd: function(file) {
     // process.stdout.write('prompt(in pwd) > ');
     // process.stdin.on('data', function (data) {
       // var cmd = data.toString().trim();
@@ -21,7 +21,7 @@ module.exports = {
     // });
   },
 
-  date: function() {
+  date: function(file) {
     // process.stdin.on('data', function (data) {
     // var cmd = data.toString().trim(); // remove the newline
     // if (cmd==="date"){
@@ -31,7 +31,7 @@ module.exports = {
     // }
   },
 
-  ls: function() {
+  ls: function(file) {
     // process.stdout.write('prompt > ');
     // process.stdin.on('data', function (data) {
       // var cmd = data.toString().trim();
@@ -45,6 +45,35 @@ module.exports = {
         });
       // }
     // });
-  }
+  },
+
+  cat: function(file) {
+    fs.readFile(file, (err, data) => {
+      if (err) throw err;
+      process.stdout.write(data);
+      process.stdout.write("\nprompt > ");
+    });
+  },
+
+  head: function(file) {
+    fs.readFile(file, (err, data) => {
+      if (err) throw err;
+      var dataArr=data.toString().split("\n");
+      process.stdout.write(dataArr.slice(0,5).join("\n"));
+      process.stdout.write("\nprompt > ");
+    });
+  },
+
+  tail: function(file) {
+    fs.readFile(file, (err, data) => {
+      if (err) throw err;
+      var dataArr=data.toString().split("\n");
+      var end=dataArr.length;
+      var start=end-5;
+      process.stdout.write(dataArr.slice(start,end).join("\n"));
+      process.stdout.write("\nprompt > ");
+    });
+}
+
 
 }
