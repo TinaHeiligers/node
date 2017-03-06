@@ -1,9 +1,5 @@
 var fs = require('fs');
 var request = require('request');
-//var done = require('./bash');
-//module.exports = {
-
-//};
 
 module.exports = {
 
