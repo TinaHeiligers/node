@@ -1,6 +1,13 @@
 var fs = require('fs');
 
 module.exports = {
+
+  echo: function(args){
+      process.stdout.write(args);
+      process.stdout.write("\nprompt > ");
+
+
+  },
   
   pwd: function() {
     // process.stdout.write('prompt(in pwd) > ');
