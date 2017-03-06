@@ -1,5 +1,10 @@
 var commands = require('./commands');
 
+  var done=function(output) {
+    process.stdout.write(output);
+    process.stdout.write("\nprompt > ");
+}
+
 process.stdout.write('prompt > ');
 process.stdin.on('data', function (data) {
   var input = data.toString().trim();
@@ -13,5 +18,5 @@ process.stdin.on('data', function (data) {
   // for cat, head and tail, use fs.readFile()
   // cat prints whole file
   // head and tail prints first/last 5 lines
-  commands[cmd](args);    
+  commands[cmd](args,done);    
 });

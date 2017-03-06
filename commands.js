@@ -1,78 +1,75 @@
 var fs = require('fs');
 var request = require('request');
+//var done = require('./bash');
+//module.exports = {
+
+//};
 
 module.exports = {
 
-  echo: function(args){
-    process.stdout.write(args);
-    process.stdout.write("\nprompt > ");
+  echo: function(args,done){
+    done(args);
   },
   
-  pwd: function(file) {
+  pwd: function(file,done) {
     var path=process.cwd();
-    process.stdout.write(path);
-    process.stdout.write("\nprompt > ");
+    done(path);
   },
 
-  date: function(file) {
+  date: function(file,done) {
     var date=Date();
-    process.stdout.write(date);
-    process.stdout.write("\nprompt > ");
+    done(date);
   },
 
-  ls: function(file) {
+  ls: function(file,done) {
+    var list="";
     fs.readdir('.', function(err, files) {
       if (err) throw err;
       files.forEach(function(file) {
-        process.stdout.write(file.toString() + "\n");
+        list+=file.toString() + "\n";
       })
-      process.stdout.write("prompt > ");
+      done(list);
     });
   },
 
-  cat: function(file) {
+  cat: function(file,done) {
     fs.readFile(file, (err, data) => {
       if (err) throw err;
-      process.stdout.write(data);
-      process.stdout.write("\nprompt > ");
+      done(data);
     });
   },
 
-  head: function(file) {
+  head: function(file,done) {
     fs.readFile(file, (err, data) => {
       if (err) throw err;
       var dataArr=data.toString().split("\n");
-      process.stdout.write(dataArr.slice(0,5).join("\n"));
-      process.stdout.write("\nprompt > ");
+      done(dataArr.slice(0,5).join("\n"));
     });
   },
 
-  tail: function(file) {
+  tail: function(file,done) {
     fs.readFile(file, (err, data) => {
       if (err) throw err;
       var dataArr=data.toString().split("\n");
       var end=dataArr.length;
       var start=end-5;
-      process.stdout.write(dataArr.slice(start,end).join("\n"));
-      process.stdout.write("\nprompt > ");
+      done(dataArr.slice(start,end).join("\n"));
     });
   },
-  wc: function(file) {
+  wc: function(file,done) {
     fs.readFile(file, (err, data) => {
       if (err) throw err;
       var dataArr=data.toString().split("\n");
       var countlines = dataArr.length;
       
-      process.stdout.write(String(countlines));
-      process.stdout.write("\nprompt > ");
+      done(String(countlines));
     });
   },
-  curl: function(url) {
+  curl: function(url,done) {
     //we haven't hardcoded the full url in here, we assume the user will type in the full request.
     var request = require('request');
     request(url, function(error, response, body) {
-      process.stdout.write(body);
+      done(body);
     });
-    process.stdout.write("\nprompt > ");
   }
 }
