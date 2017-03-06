@@ -1,19 +1,14 @@
-var commands = require('./commands');
+const chalk = require('chalk');
 
-  var done=function(output) {
-    process.stdout.write(output);
-    process.stdout.write("\nprompt > ");
-}
+const prompt = chalk.blue('\nprompt > ');
 
-process.stdout.write('prompt > ');
-process.stdin.on('data', function (data) {
-  var input = data.toString().trim();
-  // var inputArr=input.split(" ");
-  var inputArr = input.split(/\s*\|\s*/g); // any amount of whitespace, pipe, any amount of whitespace
+process.stdout.write(prompt);
+process.stdin.on('data', function(data) {
+  const cmd = data.toString().trim();
+  if (cmd === 'pwd') process.stdout.write(process.cwd());
+  else if (cmd === 'date') process.stdout.write(Date());
+  else process.stdout.write(chalk.red('command not found: ') + cmd);
 
-  var cmd=inputArr.shift();//this needs to be refactored into a new, more compilcated parsed thing
-  var args=inputArr.join(" ");//this needs to be refactored into a new, more compilcated parsed thing
-  
+  process.stdout.write(prompt);
 
-  commands[cmd](args,done);    
 });
