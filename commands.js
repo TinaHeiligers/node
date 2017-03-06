@@ -1,4 +1,5 @@
 var fs = require('fs');
+var request = require('request');
 
 module.exports = {
 
@@ -65,5 +66,13 @@ module.exports = {
       process.stdout.write(String(countlines));
       process.stdout.write("\nprompt > ");
     });
+  },
+  curl: function(url) {
+    //we haven't hardcoded the full url in here, we assume the user will type in the full request.
+    var request = require('request');
+    request(url, function(error, response, body) {
+      process.stdout.write(body);
+    });
+    process.stdout.write("\nprompt > ");
   }
 }
