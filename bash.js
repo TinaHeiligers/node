@@ -1,31 +1,14 @@
 var commands = require('./commands');
-// var userCommand = 'pwd';
-commands['pwd']();
-commands['ls']();
-// commands[userCommand[ls]];
-// // Output a prompt
-// process.stdout.write('prompt > ');
-// //console.log(Object.keys(process));
-// // The stdin 'data' event fires after a user types in a line
-// process.stdin.on('data', function (data) {
-//   var cmd = data.toString().trim(); // remove the newline
-//   if (cmd==="pwd"){
-//     var path=process.cwd();
-//     //console.log(path);
-//     process.stdout.write(path);
-//   }
-  // else if (cmd==="date"){
-  //   var date=Date();
-  //   process.stdout.write(date);
-  // }
 
-//   process.stdout.write('You typed: ' + cmd);
-//   process.stdout.write('\nprompt > ');
-
-// });
-
-// node-shell git:(master) cat bash.js
-// converts everything in the file to a string and prints those out, with a '%' at the end
-
-// ➜  node-shell git:(master) head bash.js
-// /prints only first 10 lines, with a '%' at the end
+process.stdout.write('prompt > ');
+process.stdin.on('data', function (data) {
+  var cmd = data.toString().trim();
+  //for cat and head will need to split on spaces
+  //first thing will be the cmd
+  //after that will be params
+  //echo' jsut going to return the users input as is
+  // for cat, head and tail, use fs.readFile()
+  // cat prints whole file
+  // head and tail prints first/last 5 lines
+  commands[cmd]();    
+});
