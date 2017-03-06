@@ -7,21 +7,21 @@ var request = require('request');
 
 module.exports = {
 
-  echo: function(args,done){
-    done(args);
+  echo: function(stdin,file,done){
+    done(file);
   },
   
-  pwd: function(file,done) {
+  pwd: function(stdin,file,done) {
     var path=process.cwd();
     done(path);
   },
 
-  date: function(file,done) {
+  date: function(stdin, file, done) {
     var date=Date();
     done(date);
   },
 
-  ls: function(file,done) {
+  ls: function(stdin, file, done) {
     var list="";
     fs.readdir('.', function(err, files) {
       if (err) throw err;
@@ -32,14 +32,14 @@ module.exports = {
     });
   },
 
-  cat: function(file,done) {
+  cat: function(stdin, file, done) {
     fs.readFile(file, (err, data) => {
       if (err) throw err;
       done(data);
     });
   },
 
-  head: function(file,done) {
+  head: function(stdin, file, done) {
     fs.readFile(file, (err, data) => {
       if (err) throw err;
       var dataArr=data.toString().split("\n");
@@ -47,7 +47,7 @@ module.exports = {
     });
   },
 
-  tail: function(file,done) {
+  tail: function(stdin, file, done) {
     fs.readFile(file, (err, data) => {
       if (err) throw err;
       var dataArr=data.toString().split("\n");
@@ -56,7 +56,7 @@ module.exports = {
       done(dataArr.slice(start,end).join("\n"));
     });
   },
-  wc: function(file,done) {
+  wc: function(stdin, file, done) {
     fs.readFile(file, (err, data) => {
       if (err) throw err;
       var dataArr=data.toString().split("\n");
@@ -65,10 +65,10 @@ module.exports = {
       done(String(countlines));
     });
   },
-  curl: function(url,done) {
+  curl: function(stdin, file, done) {
     //we haven't hardcoded the full url in here, we assume the user will type in the full request.
     var request = require('request');
-    request(url, function(error, response, body) {
+    request(file, function(error, response, body) {
       done(body);
     });
   }
