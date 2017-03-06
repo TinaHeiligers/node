@@ -1,6 +1,8 @@
 var commands = require('./commands');
-var userCommand = 'pwd';
-commands[userCommand]();
+// var userCommand = 'pwd';
+commands['pwd']();
+commands['ls']();
+// commands[userCommand[ls]];
 // // Output a prompt
 // process.stdout.write('prompt > ');
 // //console.log(Object.keys(process));
